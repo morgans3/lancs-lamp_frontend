@@ -1,0 +1,12 @@
+version: "2.1"
+
+services:
+  hipres-app:
+    image: hipres-app
+    build: .
+    environment:
+      NODE_ENV: development
+    ports:
+      - 4201:4201
+    ## set your startup file here
+    command: node --inspect index.js
