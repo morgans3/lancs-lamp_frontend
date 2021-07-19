@@ -18,6 +18,8 @@
  * BROWSER POLYFILLS
  */
 
+import "url-polyfill";
+
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
 // import 'core-js/es6/symbol';
 // import 'core-js/es6/object';
@@ -43,7 +45,6 @@
 /** Evergreen browsers require these. **/
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
 
-
 /**
  * Required to support Web Animations `@angular/platform-browser/animations`.
  * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
@@ -53,7 +54,7 @@
 /***************************************************************************************************
  * Zone JS is required by Angular itself.
  */
-import 'zone.js'; // Included with Angular CLI.
+import "zone.js"; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS

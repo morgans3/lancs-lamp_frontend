@@ -1,8 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { FormsModule } from "@angular/forms";
-import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { LocationStrategy, PathLocationStrategy } from "@angular/common";
 import { AppRoutes } from "./app.routing";
 import { AppComponent } from "./app.component";
@@ -17,16 +17,27 @@ import { DemoMaterialModule } from "./demo-material-module";
 import { SharedModule } from "./shared/shared.module";
 import { SpinnerComponent } from "./shared/spinner.component";
 import { SpeedDialFabComponent } from "./speed-dial-fab/speed-dial-fab.component";
+import { NgxsModule } from "@ngxs/store";
+import { NgxsEmitPluginModule } from "@ngxs-labs/emitter";
+import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
+import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+import { NgxsResetPluginModule } from "ngxs-reset-plugin";
+import { NgxsStoragePluginModule, StorageOption } from "@ngxs/storage-plugin";
+import { ReferenceState } from "./_states/reference.state";
+import { AuthState } from "./_states/auth.state";
+import { AuthService } from "./_services/auth.service";
+import { MAT_DATE_LOCALE } from "@angular/material/core";
+import { ReferenceService } from "./_services/reference.service";
+import { RoleGuard } from "./_guards/role.guard";
+import { AuthGuard } from "./_guards/auth.guard";
+import { NotificationService } from "./_services/notification.service";
+import { RequestInterceptor } from "./_services/requestinterceptor.service";
+import { ToastrModule } from "ngx-toastr";
+import { SigninComponent } from "./layouts/full/signin/signin.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FullComponent,
-    AppHeaderComponent,
-    SpinnerComponent,
-    AppSidebarComponent,
-    SpeedDialFabComponent,
-  ],
+  declarations: [SigninComponent, AppComponent, FullComponent, AppHeaderComponent, SpinnerComponent, AppSidebarComponent, SpeedDialFabComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -36,12 +47,45 @@ import { SpeedDialFabComponent } from "./speed-dial-fab/speed-dial-fab.component
     HttpClientModule,
     SharedModule,
     RouterModule.forRoot(AppRoutes),
+    NgxsModule.forRoot([AuthState, ReferenceState], {
+      developmentMode: !true,
+    }),
+    NgxsStoragePluginModule.forRoot({
+      storage: StorageOption.LocalStorage,
+    }),
+    NgxsResetPluginModule.forRoot(),
+    // NgxsRouterPluginModule.forRoot(),
+    NgxsEmitPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: true,
+    }),
+    NgxsLoggerPluginModule.forRoot({
+      disabled: true,
+    }),
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      positionClass: "toast-bottom-full-width",
+      preventDuplicates: true,
+    }),
+    ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   providers: [
+    AuthService,
+    NotificationService,
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
     },
+    AuthGuard,
+    RoleGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    },
+    { provide: MAT_DATE_LOCALE, useValue: "en-GB" },
+    ReferenceService,
   ],
   bootstrap: [AppComponent],
 })

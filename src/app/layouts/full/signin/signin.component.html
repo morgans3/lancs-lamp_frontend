@@ -1,0 +1,42 @@
+<div class="login-register" style="background-color: rgba(199, 197, 197, 0.034)">
+  <div class="login-register-box error-card text-center" style="min-width: 600px; max-width: 800px">
+    <mat-card *ngIf="!unauthenticated">
+      <mat-card-content fxLayoutAlign="center center">
+        Trying to restore previous session ...&nbsp;&nbsp;
+        <fa-icon [icon]="faSpinner" class="fas fa-pulse"></fa-icon>
+      </mat-card-content>
+    </mat-card>
+    <br /><br />
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxLayoutAlign="center center" style="padding: 0px 50px 10px">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <mat-form-field class="demo-full-width" [formGroup]="loginForm">
+                <input matInput formControlName="username" placeholder="Username" type="text" autocomplete="false" />
+              </mat-form-field>
+
+              <mat-form-field class="demo-full-width" [formGroup]="loginForm">
+                <input matInput formControlName="password" placeholder="Password" type="password" autocomplete="false" />
+              </mat-form-field>
+
+              <mat-form-field class="demo-full-width" [formGroup]="loginForm">
+                <mat-select formControlName="organisation" placeholder="Organisation">
+                  <mat-option *ngFor="let org of organisations" [value]="org">{{ org.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button mat-raised-button color="primary" style="width: 100%" type="submit">Login</button>
+            </form>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <br /><br />
+    <mat-card *ngIf="devenv">
+      <mat-card-content>
+        <button mat-raised-button color="accent" style="width: 100%" type="button" (click)="demoLogin()">Demo Login</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
