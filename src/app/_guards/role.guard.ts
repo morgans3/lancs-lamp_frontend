@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngxs/store";
 import { NotificationService } from "../_services/notification.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -13,6 +14,7 @@ export class RoleGuard implements CanActivate {
   constructor(private notificationService: NotificationService, private store: Store) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (!environment.production) return true;
     const roles = route.data.roles as Array<string>;
     const token = this.store.selectSnapshot(AuthState.getToken);
     if (token) {

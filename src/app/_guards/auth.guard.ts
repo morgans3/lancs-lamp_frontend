@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     if (token) {
       return true;
     }
-    this.notificationService.error("Unauthorised!  Please login via Nexus Intelligence");
+    this.notificationService.error("Unauthorised!  Please login.");
     this.router.navigate(["/login"]);
     return false;
   }

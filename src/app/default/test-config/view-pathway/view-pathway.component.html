@@ -1,0 +1,28 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <h5>Pathway Settings</h5>
+        <p>Pathway: {{ selectedPathway.test_pathway }}</p>
+        <p>In Use: {{ selectedPathway.in_use }}</p>
+        <p>Owner: {{ selectedPathway.owner }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <button mat-raised-button color="primary" (click)="amendPathway(selectedPathway)">Amend</button>&nbsp;
+        <button mat-raised-button *ngIf="selectedPathway.in_use === 'true'" color="warn" (click)="changeactivity('false')">Make Inactive</button>
+        <button mat-raised-button *ngIf="selectedPathway.in_use === 'false'" color="primary" (click)="changeactivity('true')">Make Active</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div *ngIf="selectedPathway" fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <h5>Config File</h5>
+        <span *ngIf="selectedPathway" [innerHTML]="transform(selectedPathway)"></span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

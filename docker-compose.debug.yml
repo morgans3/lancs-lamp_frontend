@@ -1,8 +1,8 @@
 version: "2.1"
 
 services:
-  hipres-app:
-    image: hipres-app
+  frontend-app:
+    image: frontend-app
     build: .
     environment:
       NODE_ENV: development

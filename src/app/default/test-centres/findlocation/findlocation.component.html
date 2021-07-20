@@ -1,0 +1,46 @@
+<form [formGroup]="locationForm">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="Location Name" type="text" formControlName="name" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="Address Line 1" type="text" formControlName="addressline1" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="Address Line 2" type="text" formControlName="addressline2" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="Address Line 3" type="text" formControlName="addressline3" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="Address Line 4" type="text" formControlName="addressline4" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="Address Line 5" type="text" formControlName="addressline5" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="70" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-form-field class="example-full-width">
+        <input autocomplete="off" matInput placeholder="Post Code" type="text" formControlName="postcode" />
+      </mat-form-field>
+    </div>
+    <div fxFlex.gt-sm="30" fxFlex.gt-xs="100" fxFlex="100">
+      <button type="button" *ngIf="!location" mat-raised-button style="width: 100%" color="accent" (click)="findLocation()">Find Location</button>
+      <button type="button" *ngIf="location" mat-raised-button style="width: 100%" color="warn" (click)="clearLocation()">Clear</button>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <div #mapGraph [ngStyle]="mapHeight">
+        <app-map [hidden]="!MapData && mapStyle.display !== 'block'" [MapData]="MapData" MapName="MapName" [MapZoom]="MapZoom" [MapCenter]="MapCenter" [rerender]="mapRender"></app-map>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" mat-raised-button color="primary" (click)="updateLocation()" style="width: 100%">Set Location</button>
+</form>

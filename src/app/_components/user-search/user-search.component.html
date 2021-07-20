@@ -1,0 +1,33 @@
+<mat-form-field class="example-full-width">
+  <input matInput placeholder="Search by Username or Email (min. 5 characters)..." id="search2_txt" type="text"
+    (keyup)="onSearchChangeTeamList($event.target.value)" autocomplete="off" />
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+  <mat-select [(ngModel)]="organisation" placeholder="Select an Organisation...">
+    <mat-option *ngFor="let org of organisations" [value]="org">{{org.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-card-title>
+  <mat-spinner [diameter]="20" *ngIf="searching"></mat-spinner>
+</mat-card-title>
+
+<div *ngIf="teamresults && teamresults.length > 0" fxLayout="row">
+  <div style="width:100%">
+    <p style="margin-top: 0px">{{teamresults.name}} ({{teamresults.length}})</p>
+    <p *ngIf="teamresults.length === 0">No results...</p>
+    <mat-list style="width:100%">
+      <mat-list-item *ngFor="let user of teamresults.slice(0,5); let i = index">
+        <button mat-icon-button color="primary" (click)="selectUser(user)">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+        <h4 mat-line>{{user.name}}</h4>
+        <p mat-line> {{user.email}} </p>
+      </mat-list-item>
+    </mat-list>
+    <p *ngIf="teamresults.length > 5">More results...</p>
+  </div>
+</div>
+
+<p *ngIf="teamresults && teamresults.length === 0">No staff in that organisation match your search criteria.</p>

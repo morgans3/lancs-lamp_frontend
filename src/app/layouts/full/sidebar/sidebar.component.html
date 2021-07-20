@@ -6,5 +6,21 @@
       <span fxFlex></span>
       <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
     </a>
+    <a class="" appAccordionToggle href="javascript:;" *ngIf="menuitem.type === 'sub'">
+      <i [class]="menuitem.icon" style="margin-right: 8px; font-size: 20px"></i>
+      <span>{{ menuitem.name }}</span>
+      <span fxFlex></span>
+      <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+      <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
+    </a>
+    <mat-nav-list class="sub-item" *ngIf="menuitem.type === 'sub'">
+      <mat-nav-list class="sub-item" *ngFor="let childitem of subChildren(menuitem.children)">
+        {{ childitem.name }}
+      </mat-nav-list>
+      <mat-list-item *ngFor="let childitem of nonsubChildren(menuitem.children)" routerLinkActive="selected">
+        <a *ngIf="childitem.id" [routerLink]="['/', childitem.state, childitem.id]" class="relative" routerLinkActive="selected">{{ childitem.name }}</a>
+        <a *ngIf="!childitem.id" [routerLink]="['/', childitem.state]" class="relative" routerLinkActive="selected">{{ childitem.name }}</a>
+      </mat-list-item>
+    </mat-nav-list>
   </mat-list-item>
 </mat-nav-list>

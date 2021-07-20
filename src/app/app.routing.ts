@@ -31,4 +31,15 @@ export const AppRoutes: Routes = [
       },
     ],
   },
+  {
+    path: "",
+    component: FullComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: "",
+        loadChildren: () => import("./default/default.module").then((m) => m.DefaultModule),
+      },
+    ],
+  },
 ];

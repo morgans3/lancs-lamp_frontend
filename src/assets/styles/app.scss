@@ -16,8 +16,8 @@ File: scss
  *	7. Widgets
  *	8. Custom Templates
  */
-/******************* 
-Global Styles 
+/*******************
+Global Styles
 *******************/
 
 * {
@@ -893,4 +893,12 @@ list inline
   position: absolute !important;
   right: 17px;
   top: 57px;
+}
+
+.leafletmap {
+  margin-top: 10px !important;
+  min-height: 20vh;
+  max-height: 60vh;
+  padding: 0;
+  height: 100%;
 }

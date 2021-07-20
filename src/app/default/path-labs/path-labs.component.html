@@ -1,0 +1,88 @@
+<app-path-lab-form *ngIf="formmode" [editable]="rowToEdit" (eventChange)="formUpdated($event)" (eventAdded)="formAdded($event)" [currentLabs]="pathlabs"></app-path-lab-form>
+
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxLayoutAlign="center center">
+        <mat-card-title>Pathology Labs</mat-card-title>
+      </div>
+    </div>
+
+    <hr />
+
+    <div fxLayout="row wrap" *ngIf="!dataFetched">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxLayoutAlign="center center">
+        <mat-spinner [diameter]="60"></mat-spinner>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" [hidden]="dataFetched">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div id="createNew" style="margin: 10px 0px">
+          <button type="button" mat-raised-button color="primary" style="width: 100%" (click)="newForm()">Add New Lab</button>
+        </div>
+
+        <div class="bg-light p-10 p-r-20 p-l-20">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
+          </mat-form-field>
+        </div>
+        <div class="responsive-table">
+          <mat-table #Table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="lab">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Pathology Lab </mat-header-cell>
+              <mat-cell *matCellDef="let task">
+                {{ task.lab }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="organisation">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Organisation</mat-header-cell>
+              <mat-cell *matCellDef="let task">
+                {{ task.organisation }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="npexCode">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> NPEX Code </mat-header-cell>
+              <mat-cell *matCellDef="let task">
+                {{ task.npexCode }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="namedContact">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Named Contact </mat-header-cell>
+              <mat-cell *matCellDef="let task">
+                {{ task.namedContact }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="createdDT">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Created </mat-header-cell>
+              <mat-cell *matCellDef="let task">
+                {{ task.createdDT | date: "dd/MM/yyyy" }}
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef class="text-center-header-cell"> Actions </mat-header-cell>
+              <mat-cell *matCellDef="let row; let i = index" class="text-center-header-cell">
+                <button mat-icon-button color="accent" title="Update" (click)="updateRecord(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" title="Remove" (click)="removeRecord(row)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+          </mat-table>
+
+          <mat-paginator #paginator [pageSize]="25" [pageSizeOptions]="[25, 50, 100]"> </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

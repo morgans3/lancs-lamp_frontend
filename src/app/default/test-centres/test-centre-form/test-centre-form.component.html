@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" style="padding: 20px">
+        <form class="m-t-20" [formGroup]="myForm">
+          <mat-form-field class="example-full-width">
+            <input autocomplete="off" matInput placeholder="Test Centre" type="text" formControlName="testcentre" />
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input autocomplete="off" matInput placeholder="Named Contact" type="text" formControlName="owner" />
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="picker" formControlName="opening" placeholder="Opening" readonly="true" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker type="datetime" touchUi clockStep="5" #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="picker2" formControlName="closing" placeholder="Closing" readonly="true" />
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker type="datetime" touchUi clockStep="5" #picker2></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input autocomplete="off" matInput placeholder="Node - Select Location..." type="text" formControlName="node" readonly="true" />
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Default Path Lab" formControlName="pathlab">
+              <mat-option *ngFor="let val of pathlabs" [value]="val.npexCode">{{ val.lab }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-card-actions>
+            <button mat-raised-button color="primary" type="button" (click)="registerNew()" *ngIf="!editForm" [disabled]="!myForm.valid">Submit</button>
+            <button mat-raised-button color="warn" type="button" (click)="cancel()" *ngIf="!editForm">Cancel</button>
+            <button mat-raised-button color="primary" type="button" (click)="updateExisting()" *ngIf="editForm" [disabled]="!myForm.valid">Update</button>
+            <button mat-raised-button color="warn" type="button" (click)="exitEditMode()" *ngIf="editForm">Exit edit mode</button>
+          </mat-card-actions>
+        </form>
+      </div>
+      <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" style="padding: 20px">
+        <app-findlocation [read]="read_loc" (updated)="updateLocation($event)"></app-findlocation>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

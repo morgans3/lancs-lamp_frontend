@@ -35,6 +35,10 @@ import { RequestInterceptor } from "./_services/requestinterceptor.service";
 import { ToastrModule } from "ngx-toastr";
 import { SigninComponent } from "./layouts/full/signin/signin.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { LAMPService } from "./_services/lamp.service";
+import { LeafletModule } from "@asymmetrik/ngx-leaflet";
+import { LeafletMarkerClusterModule } from "@asymmetrik/ngx-leaflet-markercluster";
+import { PostcodeService } from "./_services/postcodes.service";
 
 @NgModule({
   declarations: [SigninComponent, AppComponent, FullComponent, AppHeaderComponent, SpinnerComponent, AppSidebarComponent, SpeedDialFabComponent],
@@ -69,6 +73,8 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
     }),
     ReactiveFormsModule,
     FontAwesomeModule,
+    LeafletModule,
+    LeafletMarkerClusterModule,
   ],
   providers: [
     AuthService,
@@ -86,6 +92,8 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
     },
     { provide: MAT_DATE_LOCALE, useValue: "en-GB" },
     ReferenceService,
+    LAMPService,
+    PostcodeService,
   ],
   bootstrap: [AppComponent],
 })
