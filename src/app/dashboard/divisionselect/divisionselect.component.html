@@ -1,0 +1,18 @@
+<ul *ngIf="myareas && myareas.length > 0" style="width: 100%">
+  <li *ngFor="let level of myareas">
+    {{ level.area }}
+    <button type="button" mat-icon-button color="warn" (click)="removeArea(level)">
+      <i class="fas fa-backspace"></i>
+    </button>
+  </li>
+</ul>
+
+<p *ngIf="myareas && myareas.length === 0">No previous areas allocated</p>
+
+<hr />
+
+<h5>Allocate to new Area</h5>
+
+<app-areaselect [selectedWorkforce]="selectedWorkforce" (selection)="updateSelected($event)"></app-areaselect>
+
+<button type="button" mat-raised-button color="primary" [disabled]="selected === null" (click)="allocateStaff()" style="width: 100%">Set selected area as one of my Areas</button>

@@ -82,4 +82,14 @@ export class AuthService {
   public removeTeamRole(payload: any) {
     return this.http.post(this.baseUrl + "teamroles/remove", payload);
   }
+
+  public generateOTPCode() {
+    return this.http.get(this.baseUrl + "otp/generate");
+  }
+
+  otpValidate(code: any) {
+    return this.http.post(this.baseUrl + "otp/validate/", {
+      code: code,
+    });
+  }
 }

@@ -20,5 +20,6 @@ import { AreaselectComponent } from "./divisionselect/areaselect/areaselect.comp
   imports: [CommonModule, RouterModule.forChild(UserRoutes), ReactiveFormsModule, FormsModule, DemoMaterialModule, FlexLayoutModule, MainPipe, ComponentsModule],
   declarations: [UserComponent, MyresultsComponent, PathwaysComponent, AccessformComponent, FindmynhsnumberComponent, StaffinfoComponent, DivisionselectComponent, AreaselectComponent],
   entryComponents: [DivisionselectComponent, AreaselectComponent, FindmynhsnumberComponent],
+  exports: [DivisionselectComponent, AreaselectComponent],
 })
 export class UserModule {}

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Information required</h1>
+<div mat-dialog-content>
+  <form class="m-t-20" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-full-width">
+      <input autocomplete="off" matInput placeholder="What will this area be called..." type="text" formControlName="area" />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" style="width: 100%; padding-left: 5px; padding-right: 5px; margin-bottom: 15px" (click)="onSubmit()" [disabled]="!myForm.valid">Update</button>
+  <button mat-button color="warn" style="width: 100%; padding-left: 5px; padding-right: 5px" (click)="onNoClick()">Close</button>
+</div>

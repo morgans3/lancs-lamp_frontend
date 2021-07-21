@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 
-export class StatCardData {
+export interface StatCardData {
   title: string;
   value: string;
   color: string;
@@ -13,11 +13,7 @@ export class StatCardData {
 @Component({
   selector: "app-statcard",
   template: `
-    <mat-card
-      *ngIf="data"
-      [ngClass]="data.color"
-      style="margin-top:0px; margin-bottom: 0px"
-    >
+    <mat-card *ngIf="data" [ngClass]="data.color" style="margin-top:0px; margin-bottom: 0px">
       <mat-card-content>
         <div class="d-flex no-block align-items-center">
           <div class="mr-auto text-white icon-2x">
@@ -44,7 +40,7 @@ export class StatCardData {
   styles: [],
 })
 export class StatCardComponent {
-  @Input() data: StatCardData;
+  @Input() data: any;
 
   constructor() {}
 }

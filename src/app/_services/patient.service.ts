@@ -36,4 +36,17 @@ export class PatientService {
   public findMyNHSNumberfromSpine(payload: any) {
     return this.http.post(this.baseUrl + "pdsdemographics/findMyNHSNumber/", payload);
   }
+
+  public getSpinePatientDemographics(payload: any) {
+    return this.http.post(this.baseUrl + "pdsdemographics/demographicsbynhsnumber", payload);
+  }
+
+  // PDS Cache
+  public getPDSCache(payload: any) {
+    return this.http.post(this.baseUrl + "pdscache/checkcache/", payload);
+  }
+
+  public savePDSCache(payload: any) {
+    return this.http.post(this.baseUrl + "pdscache/updatecache/", payload);
+  }
 }

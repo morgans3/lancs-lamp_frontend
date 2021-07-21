@@ -1,0 +1,120 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content fxLayoutAlign="center center">
+        <mat-card-title>
+          Organisation Structure for:&nbsp;
+          <span *ngIf="selectedWorkforce">
+            {{ selectedWorkforce }}
+          </span>
+        </mat-card-title>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content fxLayoutAlign="space-around center">
+        <button type="button" mat-raised-button color="primary" (click)="returntodashboard()" matTooltip="Return to Dashboard" style="min-width: 80px; width: 30%">
+          <i class="fas fa-users-medical" style="font-size: x-large"></i>
+        </button>
+        <button type="button" mat-raised-button color="default" (click)="backtotop()" matTooltip="Set Focus back to Top Level of Organisation" style="min-width: 80px; width: 30%">
+          <i class="fas fa-arrow-alt-to-top" style="font-size: x-large"></i>
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="33" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Parent Level</mat-card-title>
+        <hr />
+        <div fxLayout="row wrap" *ngIf="!dataLoaded">
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <mat-card>
+              <mat-card-content fxLayoutAlign="space-around center">
+                <mat-spinner diameter="30"></mat-spinner>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <ul class="no-bullets" *ngIf="parentlevel">
+          <li *ngFor="let area of parentlevel" [class.area-focus]="area.id && area.id.toString() === currentFocus.parent">
+            <button type="button" mat-icon-button color="primary" (click)="setFocus(area)" matTooltip="Set Focus">
+              <i class="fas fa-eye"></i>
+            </button>
+            {{ area.area }}
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex.gt-sm="34" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Current Focus Level</mat-card-title>
+        <hr />
+        <div fxLayout="row wrap" *ngIf="!dataLoaded">
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <mat-card>
+              <mat-card-content fxLayoutAlign="space-around center">
+                <mat-spinner diameter="30"></mat-spinner>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <ul class="no-bullets" *ngIf="currentFocus && currentlevel.length > 0">
+          <li *ngFor="let area of currentlevel" [class.area-focus]="area.area === currentFocus.area">
+            <button type="button" *ngIf="area.area !== currentFocus.area" mat-icon-button color="primary" (click)="setFocus(area)" matTooltip="Set Focus">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button type="button" [disabled]="area.area === selectedWorkforce" *ngIf="area.area === currentFocus.area" mat-icon-button color="warn" (click)="editArea(area)" matTooltip="Edit">
+              <i class="fas fa-edit"></i>
+            </button>
+            {{ area.area }}
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex.gt-sm="33" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Sub Level</mat-card-title>
+        <hr />
+        <div fxLayout="row wrap" *ngIf="!dataLoaded">
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <mat-card>
+              <mat-card-content fxLayoutAlign="space-around center">
+                <mat-spinner diameter="30"></mat-spinner>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <ul class="no-bullets" *ngIf="childlevel">
+          <li *ngFor="let area of childlevel">
+            <button type="button" mat-icon-button color="primary" (click)="setFocus(area)" matTooltip="Set Focus">
+              <i class="fas fa-eye"></i>
+            </button>
+            {{ area.area }}
+            <button type="button" mat-icon-button color="warn" (click)="removeArea(area)" matTooltip="Remove">
+              <i class="fas fa-backspace"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button" mat-icon-button color="primary" (click)="addArea()" matTooltip="Add New">
+              <i class="fas fa-plus-circle"></i></button
+            >Add new
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

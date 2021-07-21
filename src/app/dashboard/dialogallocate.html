@@ -1,0 +1,5 @@
+<div *ngIf="data.selectedWorkforce && data.nhsnumber"><app-divisionselect [selectedWorkforce]="data.selectedWorkforce" [nhsnumber]="data.nhsnumber"></app-divisionselect></div>
+
+<div mat-dialog-actions>
+  <button mat-button color="primary" style="width: 100%; padding-left: 5px; padding-right: 5px" (click)="onNoClick()">Close</button>
+</div>
