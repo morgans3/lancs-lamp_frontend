@@ -1,0 +1,30 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content class="slimCard" fxLayout="column" fxLayoutAlign="center center" style="min-height: 66px">
+        <ul *ngIf="currentLevels && currentLevels.length > 0" style="width: 100%">
+          <li *ngFor="let level of currentLevels" style="display: inline-block">
+            >> {{ level.area }}
+            <button type="button" mat-icon-button color="warn" (click)="clearLevel(level)">
+              <i class="fas fa-backspace"></i>
+            </button>
+          </li>
+        </ul>
+
+        <span [hidden]="levellist && levellist.length === 0" style="width: 100%">
+          <mat-form-field class="example-full-width" [formGroup]="group">
+            <mat-select placeholder="Select Area..." (selectionChange)="selectLevel($event.value)" formControlName="level">
+              <mat-option *ngFor="let opt of levellist" [value]="opt">
+                {{ opt.area }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </span>
+
+        <span *ngIf="levellist && levellist.length === 0 && currentLevels && currentLevels.length === 0" style="width: 100%">
+          <p>No Organisation Structure has been provided for your selected Occupation/Organisation</p>
+        </span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

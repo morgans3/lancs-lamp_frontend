@@ -1,0 +1,87 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>My Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>This information is used to pre-populate the Mobile Testing Application when you select to Self-test. It can only be viewed and amended by you.</p>
+        <p>Please obtain your NHS number by clicking on the blue “Add/Update NHS Number” button. You will then be asked to provide your gender, date of birth and postcode and your NHS number will appear in the form below.</p>
+        <p>Please enter the e-mail address and mobile number that you would prefer to be contacted on to receive information about your test results – this does not need to be your work contact details.</p>
+
+        <form class="m-t-20" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="60" fxFlex.gt-xs="60" fxFlex="60">
+              <mat-form-field class="example-full-width">
+                <input autocomplete="off" matInput placeholder="NHS Number.." type="text" formControlName="nhsnumber" readonly="true" />
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="40" fxFlex.gt-xs="40" fxFlex="40" fxLayoutAlign="center center">
+              <button mat-raised-button type="button" style="min-width: 80%" color="accent" (click)="checkNHSNumber()">Add/Update NHS Number?</button>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" style="padding-right: 10px">
+              <mat-form-field class="example-full-width">
+                <input autocomplete="off" matInput placeholder="Email" type="text" formControlName="email" />
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" style="padding-left: 10px">
+              <mat-form-field class="example-full-width">
+                <input autocomplete="off" matInput placeholder="Mobile Phone" type="text" formControlName="phone" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Occupation.." formControlName="occupation">
+              <mat-option *ngFor="let option of occupations" [value]="option.occupation">{{ option.occupation }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="example-checkbox-group">
+            <mat-checkbox formControlName="consentA" class="example-margin">
+              <span *ngIf="!globalconsentoverride">I consent to this test being undertaken</span>
+              <span *ngIf="globalconsentoverride">I understand the test being undertaken and that the results will be recorded into my GP record</span>
+            </mat-checkbox>
+            <mat-checkbox formControlName="consentB" class="example-margin">
+              <span *ngIf="!globalconsentoverride">I consent to this test being recorded with my Health record</span>
+              <span *ngIf="globalconsentoverride">My tests results will be shared with Public Health England and other NHS agencies where required and permitted by law</span>
+            </mat-checkbox>
+            <mat-checkbox formControlName="consentC" class="example-margin">
+              <span *ngIf="!globalconsentoverride">I consent to this test information being used for NHS research</span>
+              <span *ngIf="globalconsentoverride">I agree to be contacted to participate in NHS research studies / my data may be used in a non-identifiable form to support research</span>
+            </mat-checkbox>
+          </div>
+
+          <div class="example-checkbox-group" style="margin: 15px 0" *ngIf="!globalconsentoverride">
+            <mat-checkbox formControlName="consentSharing" class="example-margin">I consent to this test information being shared with my organisation, relevant managers and Directors, and NHSE/other relevant agencies.</mat-checkbox>
+          </div>
+
+          <span *ngIf="globalconsentoverride">
+            <p>For those staff working within Health & Social Care settings:</p>
+            <p>My test results will need to be shared with Occupational Health and authorised managers/users within my organisation for the purposes of managing the Trust’s response to the pandemic and ensuring the welfare of staff and patients within my workplace</p>
+          </span>
+
+          <p>You can view the Privacy notice by <a href="assets/privacy.pdf" target="_blank"> clicking this link</a></p>
+
+          <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" style="width: 100%; margin-bottom: 10px" [disabled]="!myForm.valid">Save</button>
+            <button mat-raised-button color="warn" type="button" style="width: 100%; margin: 0" (click)="myForm.reset()">Clear</button>
+          </mat-card-actions>
+        </form>
+
+        <span *ngIf="myForm.controls.occupation.value && myForm.controls.nhsnumber.value">
+          <hr />
+          <h4>Update my Work areas</h4>
+          <app-divisionselect [selectedWorkforce]="myForm.controls.occupation.value" [nhsnumber]="myForm.controls.nhsnumber.value"></app-divisionselect>
+        </span>
+
+        <span style="margin-top: 15px" *ngIf="my_health_info_code">
+          <p>Your information has been stored against the following code: {{ my_health_info_code }}. You can update your saved information by updating the form above. If you need this removed please contact support.</p>
+        </span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

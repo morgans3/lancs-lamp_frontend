@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>Find my NHS Number</h1>
+<div mat-dialog-content>
+  <form class="m-t-20" [formGroup]="myForm">
+    <mat-form-field class="example-full-width">
+      <input autocomplete="off" matInput placeholder="First Name" type="text" formControlName="forename" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input autocomplete="off" matInput placeholder="Family Name" type="text" formControlName="familyname" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="Clinical Sex" formControlName="gender">
+        <mat-option value="Female">Female</mat-option>
+        <mat-option value="Male">Male</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p>Date of Birth:</p>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-xs="30" fxFlex="30" style="padding: 0 4px">
+        <mat-form-field class="example-full-width">
+          <input autocomplete="off" matInput placeholder="Day (DD)" type="text" formControlName="day" />
+        </mat-form-field>
+      </div>
+      <div fxFlex.gt-xs="30" fxFlex="30" style="padding: 0 4px">
+        <mat-form-field class="example-full-width">
+          <input autocomplete="off" matInput placeholder="Month (MM)" type="text" formControlName="month" />
+        </mat-form-field>
+      </div>
+      <div fxFlex.gt-xs="40" fxFlex="40" style="padding: 0 4px">
+        <mat-form-field class="example-full-width">
+          <input autocomplete="off" matInput placeholder="Year (YYYY)" type="text" formControlName="year" />
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-form-field class="example-full-width">
+      <input matInput name="postcode" type="text" placeholder="Post Code (please include spaces)" id="postcode" autocomplete="off" formControlName="postcode" />
+    </mat-form-field>
+  </form>
+  <p class="text-danger" style="text-align: center" *ngIf="errorMessage">{{ errorMessage }}</p>
+  <p class="text-bold" style="text-align: center" *ngIf="nhsnumber">An NHS Number has been found, it is: {{ nhsnumber }}. Please click confirm to save this to your form.</p>
+</div>
+<div mat-dialog-actions>
+  <button type="button" style="width: 100%" mat-raised-button color="accent" (click)="findMyNHSNumber()" *ngIf="!nhsnumber" [disabled]="!myForm.valid">Find NHS Number</button>
+  <button type="button" style="width: 100%" mat-raised-button color="primary" (click)="confirm()" *ngIf="nhsnumber">Confirm Details</button>
+  <br /><br />
+  <button type="button" style="width: 100%" mat-button color="warn" (click)="onNoClick()">Cancel</button>
+</div>

@@ -1,3 +1,64 @@
-<p>
-  user works!
-</p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>Welcome to Lancs-LAMP Testing System</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>This is a digital solution that has been designed collaboratively with local NHS organisations as a secure and effective way to share images and results across the Lancashire and South Cumbria Integrated Care System (ICS).</p>
+        <p>The service is an application that patients and staff members can use to carry out tests, support the process of providing samples and submit any related information or images, in a variety of settings and for many different uses e.g. COVID-19 tests. Updates and sesults are then sent back to the user of the app to enable them to view the outcome of each test.</p>
+        <h4>Getting started</h4>
+        <p>Before using the app, there a few steps to take.</p>
+        <p>To familiarise yourself with the app, the “How to use Lancs-LAMP" section below contains videos to demonstrate the app in use and other related functions such as how to obtain the test results.</p>
+        <p>After watching the relevant videos, you will then be required to read and accept the Terms of Use and choose whether you think you will use the app to just carry out tests for yourself or for others too e.g. for staff testing programmes you may support colleagues who do not have access to a phone or tablet.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>How to use Lancs-LAMP</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div fxFlex.gt-sm="50" fxFlex.xs="100" fxFlex="50" fxLayoutAlign="center center">
+          <iframe *ngIf="safeURL" [width]="embedWidth" [height]="embedHeight" [src]="safeURL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div fxFlex.gt-sm="50" fxFlex.xs="100" fxFlex="50" style="padding: 0 10px">
+          Video Links:
+          <div *ngFor="let section of sections">
+            <p>{{ section }}</p>
+            <ul>
+              <li *ngFor="let link of getVideoLinks(section)" (click)="updateLink(link.url)" class="videolink">{{ link.name }}</li>
+            </ul>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>Terms of Use</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        I agree that by completing the request for access form below that I will abide by these Terms of Use.
+        <br />
+        I confirm that I will only undertake and submit results for Tests that I am capable of administering.
+        <br />
+        I confirm that I will not manipulate or otherwise interrogate the functionality within the application to access data for people that I am not testing.
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.xs="100" fxFlex="100">
+    <app-accessform></app-accessform>
+  </div>
+</div>

@@ -39,6 +39,7 @@ import { LAMPService } from "./_services/lamp.service";
 import { LeafletModule } from "@asymmetrik/ngx-leaflet";
 import { LeafletMarkerClusterModule } from "@asymmetrik/ngx-leaflet-markercluster";
 import { PostcodeService } from "./_services/postcodes.service";
+import { PatientService } from "./_services/patient.service";
 
 @NgModule({
   declarations: [SigninComponent, AppComponent, FullComponent, AppHeaderComponent, SpinnerComponent, AppSidebarComponent, SpeedDialFabComponent],
@@ -94,6 +95,7 @@ import { PostcodeService } from "./_services/postcodes.service";
     ReferenceService,
     LAMPService,
     PostcodeService,
+    PatientService,
   ],
   bootstrap: [AppComponent],
 })

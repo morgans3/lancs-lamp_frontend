@@ -1,0 +1,58 @@
+<div fxLayout="row wrap" *ngIf="!trainingcomplete">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>Sign up for Tester Access</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="m-t-20" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <mat-checkbox formControlName="terms" class="example-margin">I accept the above Terms of Use</mat-checkbox>
+
+          <div style="margin-top: 10px">
+            <label>Select Role: </label>
+            <br />
+            <mat-radio-group formControlName="role" class="example-radio-group" (change)="changedRole($event.value)">
+              <mat-radio-button value="self">I will only be submitting tests for myself (validated NHS number required)</mat-radio-button>
+              <mat-radio-button value="all">I will potentially be testing myself, other staff members or any patient using this application.</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div fxLayout="row wrap" *ngIf="selectedrole === 'self'">
+            <div fxFlex.gt-sm="60" fxFlex.gt-xs="60" fxFlex="60">
+              <mat-form-field class="example-full-width">
+                <input autocomplete="off" matInput placeholder="NHS Number.." type="text" formControlName="nhsnumber" readonly="true" />
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="40" fxFlex.gt-xs="40" fxFlex="40" fxLayoutAlign="center center">
+              <button mat-raised-button type="button" style="min-width: 80%" color="accent" (click)="checkNHSNumber()">Add NHS Number</button>
+            </div>
+          </div>
+
+          <mat-card-actions style="display: flex">
+            <button mat-raised-button color="primary" type="submit" style="width: 100%" [disabled]="!myForm.valid">Submit</button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex="100">
+    <app-staffinfo></app-staffinfo>
+  </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="trainingcomplete">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>Instructions for Testing</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>You have now successfully completed the access form and will be able carry out tests.</p>
+        <p>To ensure your experience of using the app <span style="font-weight: bold">for your own self-tests is quick and effective, please complete the "My Information" section above</span> which will then automatically fill out your details wherever you select Self-Test.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
