@@ -270,4 +270,9 @@ export class LAMPService {
   public addSupportRequest(payload: any) {
     return this.http.post(this.baseUrl + "support/register/", payload);
   }
+
+  // Results
+  public getMyTestsResults() {
+    return this.http.get(this.baseUrl + "results/getmytestresults");
+  }
 }

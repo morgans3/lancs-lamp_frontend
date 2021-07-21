@@ -1,3 +1,148 @@
-<p>
-  myresults works!
-</p>
+<div fxLayout="row wrap">
+  <div fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <p *ngIf="!demographics">Loading your information...</p>
+        <p *ngIf="demographics" class="text-center">
+          <b>First Name:</b> {{ demographics.forename }} <br />
+          <b>Family Name:</b> {{ demographics.surname }} <br />
+          <b>NHS Number:</b> {{ demographics.nhsnumber }} <br />
+          <b>Gender:</b> {{ demographics.gender }} <br />
+          <b>Date of Birth:</b> {{ demographics.dob | date: "dd/MM/yyyy" }} <br />
+          <span *ngIf="demographics.postcode"> <b>Address:</b> {{ displayaddress(demographics) }} <br /> </span>
+        </p>
+        <p *ngIf="isLAMP && LAMPlast && LAMPnext" class="text-center">
+          Taking Part in LAMP Staff Testing <br />
+          <b>Last LAMP Test Taken:</b> {{ LAMPlast | date: "dd/MM/yyyy HH:mm:SS" }} <br />
+          <b>Next LAMP Test Due:</b> {{ LAMPnext | date: "dd/MM/yyyy HH:mm:SS" }} <br />
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title style="padding-top: 2px"> Tests & Lab Results </mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="results && results.length > 0">
+          <mat-table #Table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="observationtime">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Observation Time </mat-header-cell>
+              <mat-cell *matCellDef="let task"> {{ task.observationtime | date: "dd/MM/yyyy HH:mm:SS" }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Type of Test </mat-header-cell>
+              <mat-cell *matCellDef="let task"> {{ task.type }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="result">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Observation Value </mat-header-cell>
+              <mat-cell *matCellDef="let task"> {{ task.result }} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+
+          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons> </mat-paginator>
+        </div>
+        <p *ngIf="results && results.length === 0">No tests recorded.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title style="padding-top: 2px"> General Test Information and Advice </mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <app-positiveresult *ngIf="currentState && currentState === 'Positive'"></app-positiveresult>
+        <app-negativeresult *ngIf="currentState && currentState === 'Negative'"></app-negativeresult>
+        Advice on Coronavirus can be found via the following links:
+        <ul>
+          <li><a href="https://www.gov.uk/coronavirus" target="_blank">www.gov.uk/coronavirus</a></li>
+          <li><a href="https://www.nhs.uk/coronavirus" target="_blank">www.nhs.uk/coronavirus</a></li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="selectedTest">
+  <div fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title style="padding-top: 2px"> Information on Selected Test Result </mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content> Specific information </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="isStaff && !globalconsentoverride">
+  <div fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title style="padding-top: 2px"> Staff Information Sharing </mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <p>As part of the testing process you have been identified as a staff member of an organisation of a public body (NHS, Police, Fire, Carehome, etc).</p>
+        <p>These organisations have asked us to share with them their staff's results for COVID-19 related testing only. It would be greatly appreicated if you could please give your consent for this information to be shared:</p>
+        <h4>Consent for Sharing</h4>
+        <form class="m-t-20" [formGroup]="consentForm" (ngSubmit)="saveConsenttoShare()">
+          <div class="example-checkbox-group" style="margin: 15px 0">
+            <mat-checkbox formControlName="consentSharing" class="example-margin">I consent to this test information being shared with my organisation, relevant managers and Directors, and NHSE/other relevant agencies.</mat-checkbox>
+          </div>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" type="button" style="width: 100%; margin-bottom: 10px" (click)="saveConsenttoShare()">Update Consent</button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="isStaff && globalconsentoverride">
+  <div fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title style="padding-top: 2px"> Staff Information Sharing </mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <p>For those staff working within Health & Social Care settings:</p>
+        <p>My test results will need to be shared with Occupational Health and authorised managers/users within my organisation for the purposes of managing the Trust’s response to the pandemic and ensuring the welfare of staff and patients within my workplace.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="isStaff">
+  <div fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title style="padding-top: 2px"> Staff Area </mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <h4>Update my Work areas</h4>
+        <app-divisionselect [selectedWorkforce]="occupation" [nhsnumber]="setnhsnumber"></app-divisionselect>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
