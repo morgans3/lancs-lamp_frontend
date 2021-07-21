@@ -265,4 +265,9 @@ export class LAMPService {
   public removeOccupations(payload: any, type: string) {
     return this.http.post(this.baseUrl + "lists/remove" + type + "_occupation/", payload);
   }
+
+  // Support
+  public addSupportRequest(payload: any) {
+    return this.http.post(this.baseUrl + "support/register/", payload);
+  }
 }

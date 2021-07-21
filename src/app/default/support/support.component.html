@@ -1,3 +1,39 @@
-<p>
-  support works!
-</p>
+<div fxLayout="row wrap">
+  <div fxFlex="100">
+    <mat-card>
+      <mat-card-title-group fxLayoutAlign="center center">
+        <h3>Support</h3>
+      </mat-card-title-group>
+      <mat-card-content>
+        <p>If you are experiencing issues using the system, please review the guidance and communication sent out inviting you to take part.</p>
+
+        <hr />
+
+        <p>If you are experiencing technical issues or have received an error message and require help from technical support, please complete the form below to log this with the team.</p>
+        <p><strong>Please note:</strong> The technical support is not a 24-7 service and only operates during normal working hours.</p>
+
+        <hr />
+
+        <form class="m-t-20" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="example-full-width">
+            <input autocomplete="off" matInput placeholder="Contact Email" type="email" formControlName="email" />
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Type of Issue" formControlName="type">
+              <mat-option *ngFor="let issue of IssueList" [value]="issue">{{ issue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input autocomplete="off" matInput placeholder="Brief Description of Problem" type="text" formControlName="description" />
+          </mat-form-field>
+
+          <mat-card-actions>
+            <button style="width: 100%" mat-raised-button color="primary" type="submit" [disabled]="!myForm.valid">Submit</button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
