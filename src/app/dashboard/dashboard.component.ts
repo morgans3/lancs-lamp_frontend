@@ -26,7 +26,7 @@ import { Pdscache } from "../_models/patient";
 export class DashboardComponent implements OnInit {
   allSelected = false;
   totalStats: StatCardData = {
-    title: "Staff in List / # Registered",
+    title: "People in List / # Registered",
     value: "0",
     icon: "fas fa-notes-medical",
     color: "bg-info",
@@ -149,10 +149,10 @@ export class DashboardComponent implements OnInit {
         localStorage.setItem("orgstructure", this.selectedWorkforce);
         this.router.navigate(["/orgstructuretool"]);
       } else {
-        this.notificationService.warning("You do not have permissions to view or edit this organisations information.");
+        this.notificationService.warning("You do not have permissions to view or edit this occupation's information.");
       }
     } else {
-      this.notificationService.info("Please select an Organisation before proceeding to use the Structure tool");
+      this.notificationService.info("Please select an Occupation before proceeding to use the Structure tool");
     }
   }
 
@@ -203,7 +203,7 @@ export class DashboardComponent implements OnInit {
         },
         (error) => {
           this.dataFetched = true;
-          this.notificationService.warning("Unable to retrieve staff list. You may not have a role to view your organisation's information. Please contact support.");
+          this.notificationService.warning("Unable to retrieve staff list. You may not have a role to view your occupation's information. Please contact support.");
         }
       );
     });
@@ -558,7 +558,7 @@ export class DashboardComponent implements OnInit {
         },
         (error) => {
           this.dataFetched = true;
-          this.notificationService.warning("Unable to retrieve staff list. You may not have a role to view your organisation's information. Please contact support.");
+          this.notificationService.warning("Unable to retrieve staff list. You may not have a role to view your occupation's information. Please contact support.");
         }
       );
     }
@@ -627,11 +627,11 @@ export class DashboardComponent implements OnInit {
             });
           });
           const file = new Angular2Csv(exportData, csvName, options);
-          this.notificationService.info("Organisations Test Data Exported.");
+          this.notificationService.info("Occupation's Test Data Exported.");
         },
         (error) => {
           this.dataFetched = true;
-          this.notificationService.warning("Unable to retrieve staff list. You may not have a role to view your organisation's information. Please contact support.");
+          this.notificationService.warning("Unable to retrieve staff list. You may not have a role to view your occupation's information. Please contact support.");
         }
       );
     }

@@ -5,12 +5,12 @@ Email: niravjoshi87@gmail.com
 File: scss
 */
 // Variables
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
 
-$bodyfont: 'Poppins', sans-serif;
-$headingfont: 'Poppins', sans-serif;
+$bodyfont: "Poppins", sans-serif;
+$headingfont: "Poppins", sans-serif;
 
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 /*Material Theme Colors*/
 
@@ -24,7 +24,7 @@ $foreground: map-get($theme, foreground);
 @include mat-core();
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Poppins, sans-serif'
+  $font-family: "Poppins, sans-serif",
 );
 
 // Override the typography in the core CSS.
@@ -102,3 +102,8 @@ $card-brd: #d7dfe3;
 $dark-text: #848a96;
 $radius: 4px;
 $form-brd: #d9d9d9;
+
+.slimCard {
+  padding-top: 2px !important;
+  padding-bottom: 0px !important;
+}

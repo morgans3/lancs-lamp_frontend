@@ -18,7 +18,7 @@
     <mat-card>
       <mat-card-content class="slimCard" style="min-height: 66px" fxLayoutAlign="center center">
         <mat-form-field class="example-full-width" [formGroup]="group">
-          <mat-select placeholder="Filter by Organisation..." (selectionChange)="dataFetched = false; filterOccupation($event.value)" formControlName="organisation_ddl">
+          <mat-select placeholder="Filter by Occupation..." (selectionChange)="dataFetched = false; filterOccupation($event.value)" formControlName="organisation_ddl">
             <mat-option [value]="null">Select All...</mat-option>
             <mat-option *ngFor="let opt of organisations" [value]="opt.occupation">{{ opt.occupation }}</mat-option>
           </mat-select>
@@ -29,7 +29,7 @@
   <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
     <mat-card>
       <mat-card-content class="slimCard" style="min-height: 66px" fxLayoutAlign="space-around center">
-        <button type="button" [disabled]="!hasRole" mat-raised-button color="default" (click)="orgstructuretool()" matTooltip="Update Organisations Structure" style="min-width: 80px; width: 32%">
+        <button type="button" [disabled]="!hasRole" mat-raised-button color="default" (click)="orgstructuretool()" matTooltip="Update Occupation Structure" style="min-width: 80px; width: 32%">
           <i class="fas fa-sitemap"></i>
         </button>
         <button type="button" mat-raised-button color="warn" (click)="clearFilters()" matTooltip="Clear all the filters" style="min-width: 80px; width: 32%">Reset</button>
@@ -42,13 +42,13 @@
 
 <div fxLayout="row wrap" *ngIf="group.controls['organisation_ddl'].value === null">
   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-    <mat-card class="bg-info" style="color: white" fxLayoutAlign="center center"> <mat-card-content>Please select an organisation to view Covid-19 Test Information.</mat-card-content></mat-card>
+    <mat-card class="bg-info" style="color: white" fxLayoutAlign="center center"> <mat-card-content>Please select an occupation to view Covid-19 Test Information.</mat-card-content></mat-card>
   </div>
 </div>
 
 <div fxLayout="row wrap" *ngIf="group.controls['organisation_ddl'].value !== null && !hasRole">
   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-    <mat-card class="bg-warning" fxLayoutAlign="center center"> <mat-card-content>Warning - You do not have a role to view this organisation. Please contact support if you require more access.</mat-card-content></mat-card>
+    <mat-card class="bg-warning" fxLayoutAlign="center center"> <mat-card-content>Warning - You do not have a role to view this occupation. Please contact support if you require more access.</mat-card-content></mat-card>
   </div>
 </div>
 
