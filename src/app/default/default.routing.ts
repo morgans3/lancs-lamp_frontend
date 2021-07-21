@@ -5,6 +5,7 @@ import { TestCentresComponent } from "./test-centres/test-centres.component";
 import { TestConfigComponent } from "./test-config/test-config.component";
 import { RoleGuard } from "../_guards/role.guard";
 import { ResultsComponent } from "./results/results.component";
+import { SupportComponent } from "./support/support.component";
 
 export const DefaultRoutes: Routes = [
   {
@@ -39,6 +40,10 @@ export const DefaultRoutes: Routes = [
         component: ResultsComponent,
         canActivate: [RoleGuard],
         data: { roles: ["Administrator"] },
+      },
+      {
+        path: "problems",
+        component: SupportComponent,
       },
     ],
   },

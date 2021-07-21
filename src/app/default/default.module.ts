@@ -22,9 +22,10 @@ import { ViewPathwayComponent } from "./test-config/view-pathway/view-pathway.co
 import { AdminTrainingresourcesComponent } from "./Admin/admin-trainingresources/admin-trainingresources.component";
 import { ResultsComponent } from "./results/results.component";
 import { DemoMaterialModule } from "../demo-material-module";
+import { SupportComponent } from "./support/support.component";
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(DefaultRoutes), ReactiveFormsModule, FormsModule, DemoMaterialModule, FlexLayoutModule, MainPipe, ComponentsModule, LeafletModule, LeafletDrawModule],
-  declarations: [AdminComponent, TestCentresComponent, PathLabsComponent, PathLabFormComponent, TestCentreFormComponent, FindlocationComponent, MapComponent, OccupationsComponent, TestConfigComponent, ViewPathwayComponent, AdminTrainingresourcesComponent, ResultsComponent],
+  declarations: [AdminComponent, TestCentresComponent, PathLabsComponent, PathLabFormComponent, TestCentreFormComponent, FindlocationComponent, MapComponent, OccupationsComponent, TestConfigComponent, ViewPathwayComponent, AdminTrainingresourcesComponent, ResultsComponent, SupportComponent],
   entryComponents: [ViewPathwayComponent],
 })
 export class DefaultModule {}

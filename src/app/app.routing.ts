@@ -22,11 +22,6 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "/dashboard",
-        pathMatch: "full",
-      },
-      {
-        path: "",
         loadChildren: () => import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
       },
     ],
@@ -39,6 +34,28 @@ export const AppRoutes: Routes = [
       {
         path: "",
         loadChildren: () => import("./default/default.module").then((m) => m.DefaultModule),
+      },
+    ],
+  },
+  {
+    path: "",
+    component: FullComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: "",
+        loadChildren: () => import("./lab/lab.module").then((m) => m.LabModule),
+      },
+    ],
+  },
+  {
+    path: "",
+    component: FullComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: "",
+        loadChildren: () => import("./user/user.module").then((m) => m.UserModule),
       },
     ],
   },
